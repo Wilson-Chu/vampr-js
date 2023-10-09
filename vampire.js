@@ -90,6 +90,43 @@ class Vampire {
     return commonAncestor;
   }
 
+  /** Tree traversal methods **/
+
+  // Returns the vampire object with that name, or null if no vampire exists with that name
+  vampireWithName(name) {
+    if (this.name === name) {
+      return this; // Found the vampire with matching name
+    }
+
+    // Recursively search through the offspring of the current vampire
+    for (const eachOffspring of this.offspring) {
+      const result = eachOffspring.vampireWithName(name);
+      if (result) {
+        return result; // Returns the resulting object with matching name
+      }
+    }
+
+    return null; // Name not found in this tree/subtree
+  }
+
+  // Returns the total number of vampires that exist
+  get totalDescendents() {
+    let numVampires = 0;
+
+    // Recursively count the number of offsprings of 'this' vampire
+    for (const eachOffspring of this.offspring) {
+      numVampires += eachOffspring.totalDescendents;
+      numVampires++;
+    }
+
+    return numVampires;
+  }
+
+  // Returns an array of all the vampires that were converted after 1980
+  get allMillennialVampires() {
+
+  }
+
 }
 
 module.exports = Vampire;
