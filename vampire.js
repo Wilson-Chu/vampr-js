@@ -98,7 +98,7 @@ class Vampire {
       return this; // Found the vampire with matching name
     }
 
-    // Recursively search through the offspring of the current vampire
+    // Recursively searches through the offsprings of the current vampire
     for (const eachOffspring of this.offspring) {
       const result = eachOffspring.vampireWithName(name);
       if (result) {
@@ -113,7 +113,7 @@ class Vampire {
   get totalDescendents() {
     let numVampires = 0;
 
-    // Recursively count the number of offsprings of 'this' vampire
+    // Recursively counts the number of offsprings of 'this' vampire
     for (const eachOffspring of this.offspring) {
       numVampires += eachOffspring.totalDescendents;
       numVampires++;
@@ -124,6 +124,28 @@ class Vampire {
 
   // Returns an array of all the vampires that were converted after 1980
   get allMillennialVampires() {
+    const millennialVampires = [];
+
+    // Creates an array to keep track of vampires to visit and an index to keep track of the next vampire to visit
+    const vampiresToVisit = [this];
+    let vampireIndex = 0;
+
+    while (vampireIndex < vampiresToVisit.length) {
+      const currentVampire = vampiresToVisit[vampireIndex]; // Get the next vampire
+
+      if (currentVampire.yearConverted > 1980) {
+        millennialVampires.push(currentVampire);
+      }
+
+      // Adds each and every offspring to the list of vampires to visit
+      for (const eachOffspring of currentVampire.offspring) {
+        vampiresToVisit.push(eachOffspring);
+      }
+
+      vampireIndex++; // Moves to the next vampire in the array
+    }
+
+    return millennialVampires;
 
   }
 
