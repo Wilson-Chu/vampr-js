@@ -90,7 +90,6 @@ class Vampire {
     return commonAncestor;
   }
 
-
 }
 
 module.exports = Vampire;
